@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "passport-linkedin-oauth2": "^2.0.0"
+  }
+}
