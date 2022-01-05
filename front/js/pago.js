@@ -9,7 +9,7 @@ function get_preference_id(e) {
   e.preventDefault();
   console.log("click");
 
-  const payment_url = `${base_url}/pago`;
+  const payment_url = `${base_url}/mercadopago/pago`;
   let MERCADOPAGO_PUBLIC_KEY = 'TEST-19a131dc-b914-4f5f-843b-87384f2ae4e4';
 
   const data = {"amount": 1234}
