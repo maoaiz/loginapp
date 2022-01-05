@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 require('dotenv').config();
 const mercadopago = require ('./mercadopago');
+const paypal = require ('./paypal.js')
 
 //Este endpoint es de prueba nada mas
 router.get('/pruebapago', function(req, res) {
@@ -19,7 +20,7 @@ router.get('/pruebapago', function(req, res) {
 
 
 router.use('/mercadopago',mercadopago);
-
+router.use('/paypal', paypal);
 
 
 

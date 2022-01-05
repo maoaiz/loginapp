@@ -1,6 +1,6 @@
 const base_url = "http://localhost:3000"
 
-var payment_btn = document.getElementById("payment_btn");
+var payment_btn = document.getElementById("mercadopago");
 payment_btn.addEventListener('click', get_preference_id);
 
 function get_preference_id(e) {
@@ -49,6 +49,35 @@ function get_preference_id(e) {
       }); 
     }
 
+  });
+
+}
+
+var payment_btn2 = document.getElementById("paypal");
+payment_btn2.addEventListener('click', get_preference_paypal);
+
+function get_preference_paypal(e) {
+  // paso 1. Preparar el pago (ir al backend y obtener un preference_id)
+  // paso 2. Crear un botón que abre la ventana de MercadoPago.
+  e.preventDefault();
+  console.log("click");
+
+  const payment_url = `${base_url}/paypal/pago`;
+
+  const data = {"amount": 1234}
+
+  fetch(payment_url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data),
+    }
+  )
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+     //debugger
+    const url = data.href;
+    window.location.href = url;
   });
 
 }
