@@ -54,6 +54,8 @@ router.get('/redirect', async (req, res) => {
     request.requestBody({});
     client.execute(request).then(response=>{
       console.log(response.result);
+      //TO DO
+      //Redireccionar al front para mostrar el estado de la transacion 
       res.status(200).json(response.result);
     }).catch(err => {
       console.error(err);
