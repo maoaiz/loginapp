@@ -1,6 +1,6 @@
 const base_url = "http://localhost:3000"
 
-var payment_btn = document.getElementById("mercadopago");
+var payment_btn = document.getElementById("mercadopago_btn");
 payment_btn.addEventListener('click', get_preference_id);
 
 function get_preference_id(e) {
@@ -53,7 +53,7 @@ function get_preference_id(e) {
 
 }
 
-var payment_btn2 = document.getElementById("paypal");
+var payment_btn2 = document.getElementById("paypal_btn");
 payment_btn2.addEventListener('click', get_preference_paypal);
 
 function get_preference_paypal(e) {
