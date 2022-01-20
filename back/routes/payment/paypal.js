@@ -19,6 +19,10 @@ let client = new paypal.core.PayPalHttpClient(environment);
 //2.1. Crea orden de pago
 //2.2 Devuelve el link de pago
 router.post('/pago', async (req, res) => {
+    // TODO: obtener datos de la orden para armar el body
+    // req.body pueden venir datos de la orden
+    const orderId = req.body.orderId;
+
     let request = new paypal.orders.OrdersCreateRequest();
     request.requestBody({
           "intent": "CAPTURE",
@@ -37,7 +41,14 @@ router.post('/pago', async (req, res) => {
     });
     client.execute(request).then( response => {
       let {links} = response.result;
-      console.log(links);
+      console.log("==============links================");
+      const provider_id = response.id;
+      // TODO: guadar en la BD
+      // que la orden orderId será pagada con la orden de pago de 'paypal'
+      // con provider_id
+      
+      console.log(response);
+      console.log("==============================");
       let url = links.filter(link => link.rel == "approve");
       res.status(response.statusCode).json(url.pop());
     }).catch(err =>{
@@ -53,10 +64,27 @@ router.get('/redirect', async (req, res) => {
     request = new paypal.orders.OrdersCaptureRequest(token);
     request.requestBody({});
     client.execute(request).then(response=>{
-      console.log(response.result);
-      //TO DO
-      //Redireccionar al front para mostrar el estado de la transacion 
-      res.status(200).json(response.result);
+      console.log("-----------------------------------")
+      console.log(response);
+      console.log("-----------------------------------")
+      const provider_id = response.id;
+      let orderId = 2; // TODO: buscar la orden que está relacionada con el provider_id
+      // TODO: guardar en la base de datos que la orden orderId cambió de estado a X 
+      let purchase_units = response.result['purchase_units']
+      console.log(purchase_units);
+      // [
+      //   {
+      //     reference_id: 'default',
+      //     shipping: { name: [Object], address: [Object] },
+      //     payments: { captures: [Array] }
+      //   }
+      // ]
+
+      // Redireccionamos al front con la información del pago
+      const url_front = `${process.env.URL_FRONT}/?payment_token=${token}`;
+      res.redirect(301, url_front);
+
+      // res.status(200).json(response.result);
     }).catch(err => {
       console.error(err);
       res.status(err.statusCode).json(err);
