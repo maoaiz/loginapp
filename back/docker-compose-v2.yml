@@ -11,5 +11,5 @@ services:
     ports:
       - "4567:3000"
     volumes:
-      - ./:/usr/src/app  # la carpeta actual será la misma que la carpeta /usr/src/app
+      - mivolumen:/usr/src/app  # la carpeta actual será la misma que la carpeta /usr/src/app
 

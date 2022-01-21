@@ -1,8 +1,8 @@
 module.exports = {
   HOST: "mysql_container",
   USER: "root",
-  PASSWORD: "123456",
-  DB: "loginapp_db",
+  PASSWORD: "123456",   // OJO! debe ser la misma del docker-compose.yml
+  DB: "loginapp_db",  // OJO! debe ser la misma del docker-compose.yml
   PORT: 3306,
   dialect: "mysql",
   pool: {
