@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  mysqldb:
+    container_name: mysql_container
+    image: mysql
+    environment:  # la imagen requiere tener unas variables de entorno configuradas
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "2589:3306"
+    volumes:
+      - ./mydatabase:/var/lib/mysql
+    networks:
+      - loginappnet
+    cap_add:
+      - SYS_NICE  # https://stackoverflow.com/questions/55559386/how-to-fix-mbind-operation-not-permitted-in-mysql-error-log
+  myredis:
+    container_name: redis_container
+    image: redis
+    ports:
+      - "6378:6379"
+    volumes:
+      - ./myredis:/etc/redis/database
+    networks:
+      - loginappnet
+  api:
+    depends_on:
+      - mysqldb
+      - myredis
+    build: .
+    container_name: loginapp_container
+    ports:
+      - "4567:3000"
+    volumes:
+      - ./:/usr/src/app/ # carpeta_host:carpeta_contenedor
+    networks:
+      - loginappnet
+
+networks:
+  loginappnet:
+    name: loginapp_network_2  # red global
+
+volumes:
+  mydatabase:
+  myredis:

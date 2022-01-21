@@ -4,7 +4,7 @@ require('dotenv').config();
 
 router.get('/', function(req, res) {
   console.log("New request GET to /");
-  res.send('Hello world!');
+  res.send('Do requests to /users ');
 });
 
 module.exports = router

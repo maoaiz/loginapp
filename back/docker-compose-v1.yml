@@ -1,0 +1,12 @@
+version: "3.9"
+
+# Este código sirve para automatizar el comando:
+# docker run --name loginapp_container -p 4567:3000 -d loginapp_image_w_dc
+
+services:
+  api:
+    build: .
+    container_name: loginapp_container_w_dc
+    ports:
+      - "4567:3000"
+

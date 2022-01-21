@@ -1,0 +1,15 @@
+version: "3.9"
+
+# Este código sirve para automatizar el comando:
+# docker run --name loginapp_container -p 4567:3000 -d loginapp_image_w_dc
+# y además para hacer que la base de datos sea persistente (que los datos no se pierdan al levantar un nuevo container)
+
+services:
+  api:
+    build: .
+    container_name: loginapp_container_w_dc
+    ports:
+      - "4567:3000"
+    volumes:
+      - ./:/usr/src/app  # la carpeta actual será la misma que la carpeta /usr/src/app
+
